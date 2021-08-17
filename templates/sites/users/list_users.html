@@ -1,0 +1,74 @@
+{% extends 'sites/base/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="content-body">
+            <div class="container-fluid">
+                <div class="row page-titles mx-0">
+                    <div class="col-sm-6 p-md-0">
+                        <div class="welcome-text">
+                            <h4>Cześć, {{ request.user }}</h4>
+                            <span class="ml-1">W tej sekcji znajdują się wszyscy użytkownicy. Jeśli tu wszedłeś znaczy że należysz do działu zarządu!</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Użytkownicy</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0)">Zarządzanie</a></li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- row -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Lista członków projektu</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="example" class="display" style="min-width: 845px">
+                                        <thead>
+                                            <tr>
+                                                <th>Nick</th>
+                                                <th>Imię</th>
+                                                <th>Email</th>
+                                                <th>Status</th>
+                                                <th>Wiek</th>
+                                                <th>Dział</th>
+                                                <th>Ranga</th>
+                                                <th>Serwer</th>
+                                                <th>Edycja</th>
+                                                <th>Kasacja</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for user in users %}
+                                                <tr>
+                                                    <td>{{ user.user }}</td>
+                                                    <td>{{ user.user.first_name }}</td>
+                                                    <td>{{ user.user.email }}</td>
+                                                    <td>{% if user.user.is_active %}
+                                                            <span style="color:green;">Aktywny</span>
+                                                        {% else %}
+                                                            <span style="color:red;">Nieaktywny</span>
+                                                        {% endif %}
+                                                    </td>
+                                                    <td id=>{{ user.age }}</td>
+                                                    <td>{{ user.dzial }}</td>
+                                                    <td>{{ user.ranga }}</td>
+                                                    <td>{{ user.serwer }}</td>
+                                                    <td><a href="{% url 'user_edit_view' user.pk %}" style="background-color: green;">Edytuj</a></td>
+                                                    <td><a href="{% url 'user_remove_view' user.pk %}">Usuń</a></td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock content %}

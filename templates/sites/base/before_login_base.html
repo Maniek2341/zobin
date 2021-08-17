@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Zobin - {{ title }} </title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/images/favicon.png' %}">
+    <link rel="stylesheet" href="{% static 'assets/vendor/toastr/css/toastr.min.css' %}">
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+
+    <script>
+        let messages = [];
+        {% if messages %}
+            {% for message in messages %}
+            messages.push({
+                'tag': '{% if message.tags %}{{ message.tags }}{% else %}info{% endif %}',
+                'data': '{{ message|safe }}'
+            })
+            {% endfor %}
+        {% endif %}
+    </script>
+</head>
+
+<body class="h-100">
+
+{% include 'sites/base/parts/preloader.html' %}
+
+{% block content %}
+
+{% endblock content %}
+<script src="{% static 'assets/vendor/global/global.min.js' %}"></script>
+    <script src="{% static 'assets/js/quixnav-init.js' %}"></script>
+    <script src="{% static 'assets/js/custom.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/highlightjs/highlight.pack.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/toastr/js/toastr.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins-init/toastr-init.js' %}"></script>
+<script>
+    toastr.options = {
+      "closeButton": true,
+      "newestOnTop": true,
+      "progressBar": true,
+      "positionClass": "toast-top-right",
+      "preventDuplicates": false,
+      "timeOut": "10000",
+      "extendedTimeOut": "2000"
+    }
+</script>
+<script>
+    messages.forEach(function(msg){
+        try {
+            let message = JSON.parse(msg.data);
+        toastr[msg.tag](message.body, message.title)
+        } catch (e){
+            toastr[msg.tag](msg.data)
+            console.warn("Something go wrong with the notification ;-(")
+        }
+
+    });
+</script>
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+
+
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+{% extends 'sites/base/before_login_base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="authincation h-100">
+        <div class="container-fluid h-100">
+            <div class="row justify-content-center h-100 align-items-center">
+                <div class="col-xl-4 col-xxl-4 col-md-4">
+                    <div class="authincation-content">
+                        <div class="row no-gutters">
+                            <div class="col-xl-12">
+                                <div class="auth-form">
+                                    <h3 class="text-center">Wpisz nowe hasło</h3>
+                                    <form method="POST" action="{% url 'user_forgot_view' %}">
+                                        <div class="form-group">
+                                            <label>Nowe hasło</label>
+                                            {{ reset_form.new_password1 }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Powtórz haslo hasło</label>
+                                            {{ reset_form.new_password2 }}
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-flat m-b-15">Zmień hasło</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

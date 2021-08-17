@@ -1,0 +1,32 @@
+{% extends 'sites/base/before_login_base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="authincation h-100">
+        <div class="container-fluid h-100">
+            <div class="row justify-content-center h-100 align-items-center">
+                <div class="col-xl-4 col-xxl-4 col-md-4">
+                    <div class="authincation-content">
+                        <div class="row no-gutters">
+                            <div class="col-xl-12">
+                                <div class="auth-form">
+                                    <h3 class="text-center">Resetuj hasło</h3>
+                                    <form method="POST" action="{% url 'user_forgot_view' %}">
+                                        <div class="form-group">
+                                            <label>Adres email</label>
+                                            {{ forgot_form.email }}
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-flat m-b-15">Wyślij</button>
+                                        <div class="register-link text-center">
+                                            <p>Wróć do <a href="{% url 'user_login_view' %}"> logowania</a></p>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

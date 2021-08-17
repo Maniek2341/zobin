@@ -1,0 +1,49 @@
+{% extends 'sites/base/before_login_base.html' %}
+{% load static %}
+{% block content %}
+<div class="authincation h-100">
+        <div class="container-fluid h-100">
+            <div class="row justify-content-center h-100 align-items-center">
+                <div class="col-xl-4 col-xxl-4 col-md-4">
+                    <img class="logo-abbr img-fluid" src="{% static 'assets/images/logo.png' %}" alt="">
+                </div>
+                <div class="col-xl-4 col-xxl-4 col-md-4">
+                    <div class="authincation-content">
+                        <div class="row no-gutters">
+                            <div class="col-xl-12">
+                                <div class="auth-form">
+                                    <h4 class="text-center mb-4">Zaloguj się do swojego konta</h4>
+                                    <form action="{% url 'user_login_view' %}" method="post">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <label><strong>Login</strong></label>
+                                            {{ login_form.username }}
+                                        </div>
+                                        <div class="form-group">
+                                            <label><strong>Hasło</strong></label>
+                                            {{ login_form.password }}
+                                        </div>
+                                        <div class="form-row d-flex justify-content-between mt-4 mb-2">
+                                            <div class="form-group">
+                                                <div class="form-check ml-2">
+                                                    {{ login_form.remember }}
+                                                    <label class="form-check-label" for="basic_checkbox_1">Zapamiętaj</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <a href="{% url 'user_forgot_view' %}">Zapomniałeś hasła?</a>
+                                            </div>
+                                        </div>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-primary btn-block">Zaloguj się</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
