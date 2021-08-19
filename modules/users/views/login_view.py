@@ -9,6 +9,7 @@ from django.views import View
 from modules.users.forms import LoginForm
 from django.utils.translation import gettext as _
 
+
 class LoginView(View):
     title = 'Login Page'
 
@@ -35,10 +36,10 @@ class LoginView(View):
                     self.request.session.set_expiry(0)
                     self.request.session.modified = True
 
-                messages.success(request, json.dumps(
+                messages.info(request, json.dumps(
                     {
-                        'body': _("You are Successfully logged in as %s") % username,
-                        'title': _("Successfully logged in!")
+                        'body': _("Pomyślnie zalogowano jako %s") % username,
+                        'title': _("Zalogowano!")
                     }
                 ))
 

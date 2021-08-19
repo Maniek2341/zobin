@@ -7,7 +7,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
 
-from modules.users.models import UsersProfile
+from modules.users.models import UsersProfile, PanelUser
 
 
 class UserRemoveView(LoginRequiredMixin, View):
@@ -23,15 +23,14 @@ class UserRemoveView(LoginRequiredMixin, View):
         return render(request, 'sites/users/remove.html', context)
 
     def post(self, request, pk):
-        profile = UsersProfile.objects.get(pk=pk)
-
-        profile.delete()
+        user = PanelUser.objects.get(pk=pk)
 
         messages.info(request, json.dumps(
             {
-                'body': "Pomyślnie usunięto użytkownika %s" % profile.user.username,
+                'body': "Pomyślnie usunięto użytkownika %s" % user.username,
                 'title': "Usunięto!"
             }
         ))
 
+        user.delete()
         return HttpResponseRedirect(reverse_lazy("user_list_view"))

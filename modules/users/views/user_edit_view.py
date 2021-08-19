@@ -1,7 +1,7 @@
 import json
 
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -19,7 +19,8 @@ from django.utils.translation import gettext as _
 from modules.users.serializers import ProfileSerializer
 
 
-class UserEditView(LoginRequiredMixin, View):
+class UserEditView(PermissionRequiredMixin, LoginRequiredMixin, View):
+    permission_required = 'zarzad'
     login_url = reverse_lazy('user_login_view')
     title = 'Edytuj użytkownika'
 

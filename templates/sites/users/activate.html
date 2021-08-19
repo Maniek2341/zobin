@@ -10,18 +10,19 @@
                         <div class="row no-gutters">
                             <div class="col-xl-12">
                                 <div class="auth-form">
-                                    <h3 class="text-center">Wpisz nowe hasło</h3>
-                                    <form method="POST" action="{% url 'user_reset_view' uidb64=uid token=token %}">
+                                    <h3 class="text-center">Wpisz hasło które bedziesz używać</h3>
+                                    <p class="text-center">i dzięki temu aktywuj konto.</p>
+                                    <form method="POST" action="{% url 'user_activate_view' uidb64=uid token=token %}">
                                         {% csrf_token %}
                                         <div class="form-group">
                                             <label>Nowe hasło</label>
-                                            {{ reset_form.new_password1 }}
+                                            {{ form_pass.new_password1 }}
                                         </div>
                                         <div class="form-group">
                                             <label>Powtórz haslo</label>
-                                            {{ reset_form.new_password2 }}
+                                            {{ form_pass.new_password2 }}
                                         </div>
-                                        <button type="submit" class="btn btn-primary btn-flat m-b-15">Zmień hasło</button>
+                                        <button type="submit" class="btn btn-primary btn-flat m-b-15">Aktywuj</button>
                                     </form>
                                 </div>
                             </div>

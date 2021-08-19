@@ -12,6 +12,7 @@
                                 <div class="auth-form">
                                     <h3 class="text-center">Resetuj hasło</h3>
                                     <form method="POST" action="{% url 'user_forgot_view' %}">
+                                        {% csrf_token %}
                                         <div class="form-group">
                                             <label>Adres email</label>
                                             {{ forgot_form.email }}

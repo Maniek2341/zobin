@@ -6,3 +6,5 @@ from .profile_view import ProfileView
 from .create_view import CreateView
 from .list_user_view import ListUserView
 from .remove_view import UserRemoveView
+from .activate_view import ActivateView
+from .user_edit_view import UserEditView

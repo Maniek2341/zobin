@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-&@cz3w62-c()3)r)%o-2t%i*t243@-l$n7kb(z3ayq+(q8w$_q'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -112,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pl'
 
 TIME_ZONE = 'UTC'
 
@@ -141,8 +141,8 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'mail.zobin.pl'
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'no-reply@zobin.pl'
-EMAIL_HOST_PASSWORD = 'password'
+EMAIL_HOST_USER = 'poczta@gmail.com'
+EMAIL_HOST_PASSWORD = 'haslo'
 DEFAULT_FROM_EMAIL = 'PANEL | Zobin.pl'

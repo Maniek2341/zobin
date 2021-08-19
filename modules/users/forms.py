@@ -119,6 +119,28 @@ class CreateUserForm(forms.ModelForm):
             }
         ),
         error_messages={'required': _('Your First name is required')})
+
+    class Meta:
+        model = PanelUser
+        fields = ['username', 'email', 'first_name']
+
+    def save(self, commit=True):
+        user = super(CreateUserForm, self).save(commit=False)
+        user.is_active = False
+        user.save()
+        return user
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        try:
+            PanelUser.objects.get(email=email)
+        except PanelUser.DoesNotExist:
+            return email
+
+        raise forms.ValidationError(_('This e-mail address is used by another user!'))
+
+
+class CreateProfileForm(forms.ModelForm):
     gender = forms.ChoiceField(
         choices=UsersProfile.GENDER_CHOICES,
         widget=forms.Select(
@@ -160,7 +182,7 @@ class CreateUserForm(forms.ModelForm):
         )
     )
     serwer = forms.ModelChoiceField(
-        empty_label = 'Wybierz serwer',
+        empty_label='Wybierz serwer',
         queryset=Server.objects.all(),
         widget=forms.Select(
             attrs={
@@ -171,8 +193,8 @@ class CreateUserForm(forms.ModelForm):
     )
 
     class Meta:
-        model = PanelUser
-        fields = ['username', 'email', 'first_name', 'gender', 'birthday', 'ranga', 'serwer', 'dzial']
+        model = UsersProfile
+        fields = ['gender', 'birthday', 'ranga', 'serwer', 'dzial']
 
 
 class UserEditForm(forms.ModelForm):
@@ -184,7 +206,8 @@ class UserEditForm(forms.ModelForm):
                 "autocomplete": "username",
             }
         ),
-        error_messages={'required': _('The username is required'), 'unique':"This username has already been registered."})
+        error_messages={'required': _('The username is required'),
+                        'unique': "This username has already been registered."})
     email = forms.EmailField(
         widget=forms.EmailInput(
             attrs={
@@ -193,7 +216,8 @@ class UserEditForm(forms.ModelForm):
                 "autocomplete": "email"
             }
         ),
-        error_messages={'required': _('You must set your E-Mail address'), 'unique':"This email has already been registered."})
+        error_messages={'required': _('You must set your E-Mail address'),
+                        'unique': "This email has already been registered."})
 
     first_name = forms.CharField(
         widget=forms.TextInput(
@@ -252,7 +276,7 @@ class ProfileEditForm(forms.ModelForm):
         )
     )
     serwer = forms.ModelChoiceField(
-        empty_label = Server.objects.all().first(),
+        empty_label=Server.objects.all().first(),
         queryset=Server.objects.all(),
         widget=forms.Select(
             attrs={

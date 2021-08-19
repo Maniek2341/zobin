@@ -58,8 +58,8 @@
                                                     <td>{{ user.dzial }}</td>
                                                     <td>{{ user.ranga }}</td>
                                                     <td>{{ user.serwer }}</td>
-                                                    <td><a href="{% url 'user_edit_view' user.pk %}" style="background-color: green;">Edytuj</a></td>
-                                                    <td><a href="{% url 'user_remove_view' user.pk %}">Usuń</a></td>
+                                                    <td><a href="{% url 'user_edit_view' user.pk %}" class="btn btn-info">Edytuj</a></td>
+                                                    <td><a href="{% url 'user_remove_view' user.pk %}" class="btn btn-danger">Usuń</a></td>
                                                 </tr>
                                             {% endfor %}
                                         </tbody>
