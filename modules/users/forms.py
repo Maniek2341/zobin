@@ -1,8 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm, UserCreationForm
+from django.contrib.auth.models import Permission
 from django.utils.translation import gettext as _
 
-from modules.users.models import Rangs, Dzial, Server, UsersProfile
+from modules.users.models import Rangs, Server
 from modules.users.models import PanelUser
 
 
@@ -93,6 +94,7 @@ class LoginForm(forms.Form):
 
 class CreateUserForm(forms.ModelForm):
     username = forms.CharField(
+        label='Nazwa Użytkownika',
         widget=forms.TextInput(
             attrs={
                 "placeholder": "Username",
@@ -111,6 +113,7 @@ class CreateUserForm(forms.ModelForm):
         ),
         error_messages={'required': _('You must set your E-Mail address')})
     first_name = forms.CharField(
+        label='Imię',
         widget=forms.TextInput(
             attrs={
                 "placeholder": "First name",
@@ -119,30 +122,9 @@ class CreateUserForm(forms.ModelForm):
             }
         ),
         error_messages={'required': _('Your First name is required')})
-
-    class Meta:
-        model = PanelUser
-        fields = ['username', 'email', 'first_name']
-
-    def save(self, commit=True):
-        user = super(CreateUserForm, self).save(commit=False)
-        user.is_active = False
-        user.save()
-        return user
-
-    def clean_email(self):
-        email = self.cleaned_data.get('email')
-        try:
-            PanelUser.objects.get(email=email)
-        except PanelUser.DoesNotExist:
-            return email
-
-        raise forms.ValidationError(_('This e-mail address is used by another user!'))
-
-
-class CreateProfileForm(forms.ModelForm):
     gender = forms.ChoiceField(
-        choices=UsersProfile.GENDER_CHOICES,
+        label='Płeć',
+        choices=PanelUser.GENDER_CHOICES,
         widget=forms.Select(
             attrs={
                 "placeholder": "Gender",
@@ -152,6 +134,7 @@ class CreateProfileForm(forms.ModelForm):
         )
     )
     birthday = forms.DateField(
+        label='Data urodzin',
         widget=forms.DateInput(
             attrs={
                 "placeholder": "Birthday",
@@ -171,9 +154,9 @@ class CreateProfileForm(forms.ModelForm):
             }
         )
     )
-    dzial = forms.ModelChoiceField(
-        empty_label='Wybierz dzial',
-        queryset=Dzial.objects.all(),
+    dzial = forms.ChoiceField(
+        label='Dział',
+        choices=PanelUser.DZIAL_CHOICES,
         widget=forms.Select(
             attrs={
                 "class": "form-control",
@@ -193,12 +176,28 @@ class CreateProfileForm(forms.ModelForm):
     )
 
     class Meta:
-        model = UsersProfile
-        fields = ['gender', 'birthday', 'ranga', 'serwer', 'dzial']
+        model = PanelUser
+        fields = ['username', 'email', 'first_name', 'gender', 'birthday', 'ranga', 'serwer', 'dzial']
+
+    def save(self, commit=True):
+        user = super(CreateUserForm, self).save(commit=False)
+        user.is_active = False
+        user.save()
+        return user
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        try:
+            PanelUser.objects.get(email=email)
+        except PanelUser.DoesNotExist:
+            return email
+
+        raise forms.ValidationError(_('This e-mail address is used by another user!'))
 
 
-class UserEditForm(forms.ModelForm):
+class ProfileEditForm(forms.ModelForm):
     username = forms.CharField(
+        label='Nazwa Użytkownika',
         widget=forms.TextInput(
             attrs={
                 "placeholder": "Username",
@@ -209,6 +208,7 @@ class UserEditForm(forms.ModelForm):
         error_messages={'required': _('The username is required'),
                         'unique': "This username has already been registered."})
     email = forms.EmailField(
+        label='Adres E-mail',
         widget=forms.EmailInput(
             attrs={
                 "placeholder": "Email",
@@ -220,6 +220,7 @@ class UserEditForm(forms.ModelForm):
                         'unique': "This email has already been registered."})
 
     first_name = forms.CharField(
+        label='Imię',
         widget=forms.TextInput(
             attrs={
                 "placeholder": "First name",
@@ -228,15 +229,9 @@ class UserEditForm(forms.ModelForm):
             }
         ),
         error_messages={'required': _('Your First name is required')})
-
-    class Meta:
-        model = PanelUser
-        fields = ['username', 'email', 'first_name']
-
-
-class ProfileEditForm(forms.ModelForm):
     gender = forms.ChoiceField(
-        choices=UsersProfile.GENDER_CHOICES,
+        label='Płeć',
+        choices=PanelUser.GENDER_CHOICES,
         widget=forms.Select(
             attrs={
                 "placeholder": "Gender",
@@ -246,7 +241,9 @@ class ProfileEditForm(forms.ModelForm):
         )
     )
     birthday = forms.DateField(
+        label='Data urodzin',
         widget=forms.DateInput(
+            format='%d-%m-%Y',
             attrs={
                 "placeholder": "Birthday",
                 "class": "form-control",
@@ -265,9 +262,9 @@ class ProfileEditForm(forms.ModelForm):
             }
         )
     )
-    dzial = forms.ModelChoiceField(
-        empty_label=Dzial.objects.all().first(),
-        queryset=Dzial.objects.all(),
+    dzial = forms.ChoiceField(
+        label='Dział',
+        choices=PanelUser.DZIAL_CHOICES,
         widget=forms.Select(
             attrs={
                 "class": "form-control",
@@ -287,5 +284,21 @@ class ProfileEditForm(forms.ModelForm):
     )
 
     class Meta:
-        model = UsersProfile
-        fields = ['gender', 'birthday', 'ranga', 'serwer', 'dzial']
+        model = PanelUser
+        fields = ['username', 'first_name', 'email', 'gender', 'birthday', 'ranga', 'serwer', 'dzial']
+
+
+class RangForm(forms.ModelForm):
+    ranga = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Wpisz nazwę rangi",
+                "class": "form-control",
+                "autocomplete": "given-name"
+            }
+        ),
+        error_messages={'required': _('Rang is required')})
+
+    class Meta:
+        model = Rangs
+        fields = ['ranga']

@@ -1,0 +1,55 @@
+{% extends 'sites/base/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="content-body">
+            <div class="container-fluid">
+                <div class="row page-titles mx-0">
+                    <div class="col-sm-6 p-md-0">
+                        <div class="welcome-text">
+                            <h4>Cześć, {{ request.user }}</h4>
+                            <span class="ml-1">W tej sekcji znajdują się wszystkie utworzone rangi. Jeśli tu wszedłeś znaczy że należysz do działu zarządu!</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Rangi</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0)">Zarządzanie</a></li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- row -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Lista utworzonych rang</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="example" class="display" style="min-width: 845px">
+                                        <thead>
+                                            <tr>
+                                                <th>Nazwa rangi</th>
+                                                <th>Edycja</th>
+                                                <th>Kasacja</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for rang in rangs %}
+                                                <tr>
+                                                    <td>{{ rang.ranga }}</td>
+                                                    <td><a href="{% url 'rang_edit_view' rang.pk %}" class="btn btn-info">Edytuj</a></td>
+                                                    <td><a href="{% url 'rang_remove_view' rang.pk %}" class="btn btn-danger">Usuń</a></td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock content %}

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.urls import path, include
 
 from modules.users.views import LoginView, ResetView, ForgotView, LogoutView, ProfileView, CreateView, ListUserView, \
-    UserRemoveView, ActivateView, UserEditView
+    UserRemoveView, ActivateView, UserEditView, RangRemoveView, RangsCreateView, ListRangView, RangEditView
 
 urlpatterns = (
     path('login/', LoginView.as_view(), name="user_login_view"),
@@ -15,5 +15,9 @@ urlpatterns = (
     path('edit/<int:pk>/', UserEditView.as_view(), name="user_edit_view"),
     path('remove/<int:pk>/', UserRemoveView.as_view(), name="user_remove_view"),
     path('activate/<uidb64>/<token>/', ActivateView.as_view(), name="user_activate_view"),
+    path('rang/create/', RangsCreateView.as_view(), name="rang_create_view"),
+    path('rang/remove<int:pk>', RangRemoveView.as_view(), name="rang_remove_view"),
+    path('rang/list', ListRangView.as_view(), name="rang_list_view"),
+    path('rang/edit/<int:pk>/', RangEditView.as_view(), name="rang_edit_view"),
 )
 

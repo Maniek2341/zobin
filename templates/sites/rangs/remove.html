@@ -8,10 +8,10 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Napewno usunąć użytkownika {{ profile.username }}</h4>
+                                <h4 class="card-title">Napewno usunąć rangę {{ rang.ranga }}</h4>
                             </div>
                             <div class="card-body">
-                                <form class="form-valide" action="{% url 'user_remove_view' pk=profile.pk %}" method="post">
+                                <form class="form-valide" action="{% url 'rang_remove_view' pk=rang.pk %}" method="post">
                                     {% csrf_token %}
                                     <div class="form-group row">
                                         <div class="col-lg-8 ml-auto">

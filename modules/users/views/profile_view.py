@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
 
-from modules.users.models import PanelUser, UsersProfile
+from modules.users.models import PanelUser
 
 
 class ProfileView(LoginRequiredMixin, View):
@@ -11,7 +11,7 @@ class ProfileView(LoginRequiredMixin, View):
     title = 'Profil prywatny'
 
     def get(self, request):
-        profile = UsersProfile.objects.get(user=request.user)
+        profile = PanelUser.objects.get(user=request.user)
         context = {
             'title': self.title,
             'profile': profile

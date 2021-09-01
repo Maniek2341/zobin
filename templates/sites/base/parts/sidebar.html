@@ -4,37 +4,60 @@
                 <ul class="metismenu" id="menu">
                     <li class="nav-label first">Menu główne</li>
                     <li>
-                        <a href="{% url 'main_dashboard_view' %}"><i class="icon icon-single-04"></i><span
+                        <a href="{% url 'main_dashboard_view' %}"><i class="icon icon-home"></i><span
                                 class="nav-text">Strona główna</span></a>
                     </li>
                     <li class="nav-label">Formularze</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                                 class="icon icon-world-2"></i><span class="nav-text">Wnioski</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="./ui-accordion.html">Accordion</a></li>
-                            <li><a href="./ui-alert.html">Alert</a></li>
-                            <li><a href="./ui-badge.html">Badge</a></li>
-                            <li><a href="./ui-button.html">Button</a></li>
-                            <li><a href="./ui-modal.html">Modal</a></li>
+                            <li><a href="./ui-accordion.html">Urlop</a></li>
+                            <li><a href="./ui-alert.html">Pochwała</a></li>
+                            <li><a href="./ui-badge.html">Skarga</a></li>
+                            <li><a href="./ui-button.html">Wypowiedzenie</a></li>
+                            <li><a href="./ui-modal.html">Propozycja</a></li>
 
                         </ul>
                     </li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon fooicon-remove"></i><span class="nav-text">Kary</span></a>
+                                class="icon-fire"></i><span class="nav-text">Kary</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="./uc-select2.html">Select 2</a></li>
-                            <li><a href="./uc-nestable.html">Nestedable</a></li>
+                            <li><a href="./uc-select2.html">Blacklist</a></li>
+                            <li><a href="./uc-nestable.html">Zawieszenie</a></li>
+                            <li><a href="./uc-nestable.html">Mute</a></li>
+                            <li><a href="./uc-nestable.html">Kick</a></li>
+                            <li><a href="./uc-nestable.html">Ban</a></li>
                         </ul>
                     </li>
-                    {% if user.dzial.dzial == 'Zarzad' %}
+                    <li class="nav-label first">Ogłoszenia</li>
+                    <li>
+                        <a href="{% url 'main_message_view' %}"><i class="icon-bubble"></i><span
+                                class="nav-text">Wstaw ogłoszenie</span></a>
+                    </li>
+                    {% if perms.users.zarzad %}
                     <li class="nav-label">Strafa Właścicieli</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                                class="icon icon-plug"></i><span class="nav-text">Użytkownicy</span></a>
+                                class="icon-people"></i><span class="nav-text">Użytkownicy</span></a>
                         <ul aria-expanded="false">
                             <li><a href="{% url 'user_create_view' %}">Dodaj</a></li>
                             <li><a href="{% url 'user_list_view' %}">Zarządzaj</a></li>
                         </ul>
                     </li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                                class="fa fa-address-book"></i><span class="nav-text">Rangi</span></a>
+                        <ul aria-expanded="false">
+                            <li><a href="{% url 'rang_create_view' %}">Dodaj</a></li>
+                            <li><a href="{% url 'rang_list_view' %}">Zarządzaj</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                                class="fa fa-server"></i><span class="nav-text">Serwery</span></a>
+                        <ul aria-expanded="false">
+                            <li><a href="hj">Dodaj</a></li>
+                            <li><a href="jh">Zarządzaj</a></li>
+                        </ul>
+                    </li>
+
                     {% endif %}
                 </ul>
             </div>

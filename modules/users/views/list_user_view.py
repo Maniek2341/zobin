@@ -16,10 +16,8 @@ from modules.users.forms import CreateUserForm
 
 from django.utils.translation import gettext as _
 
-from modules.users.models import PanelUser, UsersProfile
+from modules.users.models import PanelUser, Rangs
 from rest_framework import viewsets, generics
-
-from modules.users.serializers import ProfileSerializer
 
 
 class ListUserView(PermissionRequiredMixin, LoginRequiredMixin, APIView):
@@ -30,11 +28,25 @@ class ListUserView(PermissionRequiredMixin, LoginRequiredMixin, APIView):
     template_name = 'sites/users/list_users.html'
 
     def get(self, request):
-        queryset = UsersProfile.objects.all()
+        queryset = PanelUser.objects.all()
         context = {
             'users': queryset,
-            'title': self.title
+            'title': self.title,
         }
         return Response(context)
 
+
+class ListRangView(PermissionRequiredMixin, LoginRequiredMixin, APIView):
+    permission_required = 'zarzad'
+    login_url = reverse_lazy('user_login_view')
+    title = 'Lista użytkowników'
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'sites/rangs/list.html'
+
+    def get(self, request):
+        context = {
+            'rangs': Rangs.objects.all(),
+            'title': self.title,
+        }
+        return Response(context)
 

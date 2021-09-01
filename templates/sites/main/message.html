@@ -1,0 +1,54 @@
+{% extends 'sites/base/base.html' %}
+{% block content %}
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row page-titles mx-0">
+            <div class="col-sm-6 p-md-0">
+                <div class="welcome-text">
+                    <h4>Cześć, {{ request.user }}</h4>
+                    <p class="mb-1">W tej sekcji mozesz wysłać wiadomość którą będą widzieć wszyscy użytkownicy na stronie głównej</p>
+                </div>
+            </div>
+            <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Wiadomości</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Wyślij</a></li>
+                </ol>
+            </div>
+        </div>
+        <!-- row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title" style="margin: 0 auto">Wstaw ogłoszenie na stronę główną</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-validation">
+                            <form class="form-valide" action="{% url 'main_message_view'%}" method="post">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="form-group row">
+                                            <label class="col-lg-2 col-form-label" for="username">{{ message_form.mess.label}}
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-lg-10">
+                                                {{ message_form.mess}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8 ml-auto">
+                                        <button type="submit" class="btn btn-primary">Wyślij</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

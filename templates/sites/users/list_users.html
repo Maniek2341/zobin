@@ -7,7 +7,7 @@
                 <div class="row page-titles mx-0">
                     <div class="col-sm-6 p-md-0">
                         <div class="welcome-text">
-                            <h4>Cześć, {{ request.user }}</h4>
+                            <h4>Cześć, {{ request.user.username|capfirst }}</h4>
                             <span class="ml-1">W tej sekcji znajdują się wszyscy użytkownicy. Jeśli tu wszedłeś znaczy że należysz do działu zarządu!</span>
                         </div>
                     </div>
@@ -45,17 +45,17 @@
                                         <tbody>
                                             {% for user in users %}
                                                 <tr>
-                                                    <td>{{ user.user }}</td>
-                                                    <td>{{ user.user.first_name }}</td>
-                                                    <td>{{ user.user.email }}</td>
-                                                    <td>{% if user.user.is_active %}
+                                                    <td>{{ user.username }}</td>
+                                                    <td>{{ user.first_name }}</td>
+                                                    <td>{{ user.email }}</td>
+                                                    <td>{% if user.is_active %}
                                                             <span style="color:green;">Aktywny</span>
                                                         {% else %}
                                                             <span style="color:red;">Nieaktywny</span>
                                                         {% endif %}
                                                     </td>
-                                                    <td id=>{{ user.age }}</td>
-                                                    <td>{{ user.dzial }}</td>
+                                                    <td>{{ user.age }}</td>
+                                                    <td>{{ user.get_dzial_display }}</td>
                                                     <td>{{ user.ranga }}</td>
                                                     <td>{{ user.serwer }}</td>
                                                     <td><a href="{% url 'user_edit_view' user.pk %}" class="btn btn-info">Edytuj</a></td>
