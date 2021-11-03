@@ -288,6 +288,58 @@ class ProfileEditForm(forms.ModelForm):
         fields = ['username', 'first_name', 'email', 'gender', 'birthday', 'ranga', 'serwer', 'dzial']
 
 
+class ProfileForm(forms.ModelForm):
+    username = forms.CharField(
+        label='Nazwa Użytkownika',
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Username",
+                "class": "form-control",
+                "autocomplete": "username",
+            }
+        ),
+        error_messages={'required': _('The username is required'),
+                        'unique': "This username has already been registered."})
+    email = forms.EmailField(
+        label='Adres E-mail',
+        widget=forms.EmailInput(
+            attrs={
+                "placeholder": "Email",
+                "class": "form-control",
+                "autocomplete": "email"
+            }
+        ),
+        error_messages={'required': _('You must set your E-Mail address'),
+                        'unique': "This email has already been registered."})
+
+    first_name = forms.CharField(
+        label='Imię',
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "First name",
+                "class": "form-control",
+                "autocomplete": "given-name"
+            }
+        ),
+        error_messages={'required': _('Your First name is required')})
+    birthday = forms.DateField(
+        label='Data urodzin',
+        widget=forms.DateInput(
+            format='%d-%m-%Y',
+            attrs={
+                "placeholder": "Birthday",
+                "class": "form-control",
+                'type': 'date',
+                "autocomplete": "bday"
+            }
+        )
+    )
+
+    class Meta:
+        model = PanelUser
+        fields = ['username', 'first_name', 'email', 'birthday']
+
+
 class RangForm(forms.ModelForm):
     ranga = forms.CharField(
         widget=forms.TextInput(
