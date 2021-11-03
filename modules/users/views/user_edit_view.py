@@ -13,7 +13,6 @@ from modules.users.models import PanelUser, Rangs
 from django.utils.translation import gettext as _
 
 
-
 class UserEditView(PermissionRequiredMixin, LoginRequiredMixin, View):
     permission_required = 'zarzad'
     login_url = reverse_lazy('user_login_view')
@@ -21,8 +20,6 @@ class UserEditView(PermissionRequiredMixin, LoginRequiredMixin, View):
 
     def get(self, request, pk):
         profile = PanelUser.objects.get(pk=pk)
-
-
         profile_form = ProfileEditForm(instance=profile)
 
         context = {

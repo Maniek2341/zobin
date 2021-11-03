@@ -11,11 +11,11 @@
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                                 class="icon icon-world-2"></i><span class="nav-text">Wnioski</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="./ui-accordion.html">Urlop</a></li>
-                            <li><a href="./ui-alert.html">Pochwała</a></li>
-                            <li><a href="./ui-badge.html">Skarga</a></li>
-                            <li><a href="./ui-button.html">Wypowiedzenie</a></li>
-                            <li><a href="./ui-modal.html">Propozycja</a></li>
+                            <li><a href="{% url 'wniosek_urlop_view' %}">Urlop</a></li>
+                            <li><a href="{% url 'wniosek_pochwala_view' %}">Pochwała</a></li>
+                            <li><a href="{% url 'wniosek_skarga_view' %}">Skarga</a></li>
+                            <li><a href="{% url 'wniosek_wypowiedzenie_view' %}">Wypowiedzenie</a></li>
+                            <li><a href="{% url 'wniosek_propozycja_view' %}">Propozycja</a></li>
 
                         </ul>
                     </li>

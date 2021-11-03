@@ -12,14 +12,16 @@ class DashboardView(LoginRequiredMixin, View):
     login_url = reverse_lazy('user_login_view')
 
     def get(self, request):
-        czlonek = Messages.objects.filter(user__dzial=1)
-        dyrekcja = Messages.objects.filter(user__dzial=2)
-        zarzad = Messages.objects.filter(user__dzial=3)
+        czlonek = Messages.objects.filter(user__dzial=1).order_by('-created_at')[:5]
+        dyrekcja = Messages.objects.filter(user__dzial=2).order_by('-created_at')[:5]
+        zarzad = Messages.objects.filter(user__dzial=3).order_by('-created_at')[:5]
+        users = PanelUser.objects.all()
 
         context = {
             'title': 'Dashboard',
             'czlonek': czlonek,
             'dyrekcja': dyrekcja,
             'zarzad': zarzad,
+            'users': users,
         }
         return render(request, 'sites/main/dashboard.html', context)

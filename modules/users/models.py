@@ -15,12 +15,20 @@ from django.utils.translation import gettext as _
 class Server(models.Model):
     serwer = models.CharField(max_length=50)
 
+    class Meta:
+        verbose_name = _('Serwer')
+        verbose_name_plural = _('Serwery')
+
     def __str__(self):
         return self.serwer
 
 
 class Rangs(models.Model):
     ranga = models.CharField(max_length=50)
+
+    class Meta:
+        verbose_name = _('Ranga')
+        verbose_name_plural = _('Rangi')
 
     def __str__(self):
         return self.ranga
@@ -74,6 +82,9 @@ class PanelUser(AbstractBaseUser, PermissionsMixin):
         (DZIAL_DYREKCJA, _("Dyrekcja")),
         (DZIAL_ZARZAD, _("Zarząd")),
     ]
+
+    avatar = models.ImageField(blank=True, null=True, upload_to='avatars', default='avatars/1.png')
+    baner = models.ImageField(blank=True, null=True, upload_to='baner')
 
     birthday = models.DateField(blank=True, null=True)
     gender = models.PositiveSmallIntegerField(choices=GENDER_CHOICES, blank=True, default=GENDER_MALE)

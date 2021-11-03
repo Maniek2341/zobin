@@ -2,31 +2,28 @@
 {% load static %}
 
 {% block content %}
+    <style>
+    .cover-photo:hover {
+        cursor:pointer;
+        opacity: 0.8;
+
+    }
+    .profile-photo:hover {
+        cursor:pointer;
+        opacity: 0.8;
+    }
+</style>
 <div class="content-body">
     <div class="container-fluid">
-        <div class="row page-titles mx-0">
-            <div class="col-sm-6 p-md-0">
-                <div class="welcome-text">
-                    <h4>Hi, welcome back!</h4>
-                    <p class="mb-0">Your business dashboard template</p>
-                </div>
-            </div>
-            <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">App</a></li>
-                    <li class="breadcrumb-item active"><a href="javascript:void(0)">Profile</a></li>
-                </ol>
-            </div>
-        </div>
         <!-- row -->
         <div class="row">
             <div class="col-lg-12">
                 <div class="profile">
                     <div class="profile-head">
                         <div class="photo-content">
-                            <div class="cover-photo"></div>
+                            <div class="cover-photo" style="background: url({{ profile.baner.url }}); background-size: cover; background-position: center;"></div>
                             <div class="profile-photo">
-                                <img src="{% static 'assets/images/profile/profile.png' %}" class="img-fluid rounded-circle" alt="">
+                                <a href="{% url 'user_avatar_change_view' %}"><img src="{{ profile.avatar.url }}" class="rounded-circle" height="150" width="150" alt=""></a>
                             </div>
                         </div>
                         <div class="profile-info">
@@ -35,13 +32,13 @@
                                     <div class="row">
                                         <div class="col-xl-4 col-sm-4 border-right-1 prf-col">
                                             <div class="profile-name">
-                                                <h4 class="text-primary">{{ profile.user.username }}</h4>
+                                                <h4 class="text-primary">{{ profile.username }}</h4>
                                                 <p>{{ profile.ranga }}</p>
                                             </div>
                                         </div>
                                         <div class="col-xl-4 col-sm-4 border-right-1 prf-col">
                                             <div class="profile-email">
-                                                <h4 class="text-muted">{{ profile.user.email }}</h4>
+                                                <h4 class="text-muted">{{ profile.email }}</h4>
                                                 <p>Email</p>
                                             </div>
                                         </div>
@@ -61,17 +58,16 @@
                             <div class="text-center mt-4 border-bottom-1 pb-3">
                                 <div class="row">
                                     <div class="col">
-                                        <h3 class="m-b-0">150</h3><span>Follower</span>
+                                        <h3 class="m-b-0">150</h3><span>Skargi</span>
                                     </div>
                                     <div class="col">
-                                        <h3 class="m-b-0">140</h3><span>Place Stay</span>
+                                        <h3 class="m-b-0">140</h3><span>Pochwały</span>
                                     </div>
-                                    <div class="col">
-                                        <h3 class="m-b-0">45</h3><span>Reviews</span>
-                                    </div>
+
                                 </div>
-                                <div class="mt-4"><a href="javascript:void()" class="btn btn-primary pl-5 pr-5 mr-3 mb-4">Follow</a> <a href="javascript:void()" class="btn btn-dark pl-5 pr-5 mb-4">Send
-                                        Message</a>
+                                <div class="mt-4"><a href="" class="btn btn-primary pl-5 pr-5 mr-3 mb-4">Pochwal</a>
+                                 <a href="" class="btn btn-primary pl-5 pr-5 mr-3 mb-4">Oskarż</a>
+                                    <a href="" class="btn btn-dark pl-5 pr-5 mb-4">Wyślij wiadomość</a>
                                 </div>
                             </div>
                         </div>
@@ -104,15 +100,26 @@
                                         <div class="pt-3">
                                             <div class="settings-form">
                                                 <h4 class="text-primary">Ustawienia konta</h4>
-                                                <form method="POST" action="{% url 'user_profile_view' %}">
+                                                <form method="POST" action="{% url 'profile_view' %}">
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
-                                                            <label>Email</label>
-                                                            <input type="email" placeholder="Email" class="form-control">
+                                                            <label>{{ form.username.label }}</label>
+                                                            {{ form.username }}
                                                         </div>
                                                         <div class="form-group col-md-6">
-                                                            <label>Imie</label>
-                                                            <input type="text" placeholder="Imie" class="form-control">
+                                                            <label>{{ form.first_name.label }}</label>
+                                                            {{ form.first_name }}
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6">
+                                                            <label>{{ form.email.label }}</label>
+                                                            {{ form.email }}
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label>{{ form.birthday.label }}</label>
+                                                            {{ form.birthday }}
                                                         </div>
                                                     </div>
 
@@ -136,7 +143,7 @@
                                                     <h5 class="f-w-500">Name <span class="pull-right">:</span>
                                                     </h5>
                                                 </div>
-                                                <div class="col-9"><span>{{ profile.user.first_name }}</span>
+                                                <div class="col-9"><span>{{ profile.first_name }}</span>
                                                 </div>
                                             </div>
                                             <div class="row mb-4">
@@ -144,7 +151,7 @@
                                                     <h5 class="f-w-500">Email <span class="pull-right">:</span>
                                                     </h5>
                                                 </div>
-                                                <div class="col-9"><span>{{ profile.user.email }}</span>
+                                                <div class="col-9"><span>{{ profile.email }}</span>
                                                 </div>
                                             </div>
                                             <div class="row mb-4">
@@ -152,7 +159,7 @@
                                                     <h5 class="f-w-500">Wiek <span class="pull-right">:</span>
                                                     </h5>
                                                 </div>
-                                                <div class="col-9"><span>20</span>
+                                                <div class="col-9"><span>{{ profile.age }}</span>
                                                 </div>
                                             </div>
                                             <div class="row mb-4">

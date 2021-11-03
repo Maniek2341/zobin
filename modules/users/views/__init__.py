@@ -8,3 +8,5 @@ from .list_user_view import ListUserView, ListRangView
 from .remove_view import UserRemoveView, RangRemoveView
 from .activate_view import ActivateView
 from .user_edit_view import UserEditView, RangEditView
+from .user_profile_view import UserProfileView
+from .user_avatar_change_view import AvatarChangeView

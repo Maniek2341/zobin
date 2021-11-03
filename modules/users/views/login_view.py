@@ -9,6 +9,8 @@ from django.views import View
 from modules.users.forms import LoginForm
 from django.utils.translation import gettext as _
 
+from modules.users.models import PanelUser
+
 
 class LoginView(View):
     title = 'Login Page'
@@ -29,6 +31,7 @@ class LoginView(View):
             password = form.cleaned_data.get("password")
             remember = form.cleaned_data.get("remember")
             user = authenticate(username=username, password=password)
+            user1 = PanelUser.objects.get(username=username)
 
             if user is not None:
                 login(request, user)
@@ -44,6 +47,13 @@ class LoginView(View):
                 ))
 
                 return HttpResponseRedirect(reverse_lazy("main_dashboard_view"))
+            elif not user1.is_active:
+                messages.error(request, json.dumps(
+                    {
+                        'body': _("Najpierw aktywuj konto!"),
+                        'title': _("Brak autoryzacji!")
+                    }
+                ))
             else:
                 messages.error(request, json.dumps(
                     {

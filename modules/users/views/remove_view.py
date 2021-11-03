@@ -25,14 +25,22 @@ class UserRemoveView(PermissionRequiredMixin, LoginRequiredMixin, View):
     def post(self, request, pk):
         user = PanelUser.objects.get(pk=pk)
 
-        messages.info(request, json.dumps(
+        if not user.pk == request.user.pk:
+            messages.info(request, json.dumps(
+                {
+                    'body': "Pomyślnie usunięto użytkownika %s" % user.username,
+                    'title': "Usunięto!"
+                }
+            ))
+
+            user.delete()
+
+        messages.error(request, json.dumps(
             {
-                'body': "Pomyślnie usunięto użytkownika %s" % user.username,
-                'title': "Usunięto!"
+                'body': "Nie mozesz usunąć samego siebie.",
+                'title': "Błąd!"
             }
         ))
-
-        user.delete()
         return HttpResponseRedirect(reverse_lazy("user_list_view"))
 
 class RangRemoveView(PermissionRequiredMixin, LoginRequiredMixin, View):

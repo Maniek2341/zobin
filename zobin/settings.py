@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'modules.UsersConfig',
     'modules.MainConfig',
+    'modules.WnioskiConfig',
 ]
 
 MIDDLEWARE = [
@@ -127,6 +128,9 @@ LOGOUT_REDIRECT_URL = 'user/logout'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "public")
 
@@ -143,7 +147,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'maniek2341@gmail.com'
-EMAIL_HOST_PASSWORD = 'GeNoWeFa123'
+EMAIL_HOST_PASSWORD = 'password'
 DEFAULT_FROM_EMAIL = 'PANEL | Zobin.pl'
 
 

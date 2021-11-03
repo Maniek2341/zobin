@@ -19,7 +19,7 @@ class UserProfileAdmin(admin.ModelAdmin):
             'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'),
         }),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
-        (_('Profile'), {'fields': ('birthday', 'gender', 'ranga','dzial', 'serwer', 'created_at')})
+        (_('Profile'), {'fields': ('avatar','baner','birthday', 'gender', 'ranga','dzial', 'serwer', 'created_at')})
     )
     add_fieldsets = (
         (None, {
